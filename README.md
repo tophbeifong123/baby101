@@ -1,4 +1,4 @@
-# 👶 Baby 101 Project
+# 👶 โปรเจกต์ Baby 101
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.4-blue?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
@@ -6,185 +6,177 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-A state-of-the-art, high-performance web application workspace. The core project is bootstrapped as a modern **Next.js** application equipped with **React 19**, **TypeScript**, and **Tailwind CSS v4.0**, structured specifically to follow industry best practices for scalability, maintainability, and visual excellence.
+พื้นที่ทำงานสำหรับการพัฒนาเว็บแอปพลิเคชันประสิทธิภาพสูง โครงสร้างหลักถูกจัดเตรียมด้วยเทคโนโลยีระดับแนวหน้าอย่าง **Next.js**, **React 19**, **TypeScript** และ **Tailwind CSS v4.0** โดยออกแบบโครงสร้างตามแนวทางปฏิบัติที่ดีที่สุด (Best Practices) เพื่อรองรับการขยายตัวของระบบ การดูแลรักษาที่ง่าย และความสวยงามทันสมัยระดับพรีเมียม
 
 ---
 
-## 📌 Table of Contents
+## 📌 สารบัญ
 
-- [🚀 Key Features](#-key-features)
-- [🛠️ Tech Stack & Architecture](#️-tech-stack--architecture)
-- [📂 Project Directory Structure](#-project-directory-structure)
-- [💻 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Development Server](#development-server)
-- [📋 Available Scripts](#-available-scripts)
-- [🎨 Coding & Design Best Practices](#-coding--design-best-practices)
-  - [1. Performance & Core Web Vitals](#1-performance--core-web-vitals)
-  - [2. Styling Standards](#2-styling-standards)
-  - [3. SEO & Meta Tags](#3-seo--meta-tags)
-- [☁️ Production & Deployment](#️-production--deployment)
-  - [Build Verification](#build-verification)
-  - [Deploying to Vercel](#deploying-to-vercel)
-- [📄 License](#-license)
-
----
-
-## 🚀 Key Features
-
-- **⚡ Next.js App Router Architecture:** Embraces the latest React Server Components (RSC) and Client Components paradigms for ultra-fast rendering, streaming, and efficient data fetching.
-- **💅 Tailwind CSS v4.0 Integration:** Leverages the brand-new `@tailwindcss/postcss` compiler engine to deliver optimized, super-fast CSS compilation and modular class usage.
-- **🛡️ Fully Typed Codebase:** TypeScript configuration with strict mode enabled, preventing runtime failures and ensuring a rich developer experience.
-- **✨ Dynamic Responsive Design:** Built using responsive utility patterns matching modern design system standards (sleek gradients, glassmorphism, responsive viewports).
-- **🔍 Built-in SEO Optimization:** Best-practice semantic HTML structures, structured page headers, and unique accessibility elements pre-configured on every page level.
+- [🚀 คุณสมบัติเด่น](#-คุณสมบัติเด่น)
+- [🛠️ เทคโนโลยีและสถาปัตยกรรม](#️-เทคโนโลยีและสถาปัตยกรรม)
+- [📂 โครงสร้างโฟลเดอร์ของโปรเจกต์](#-โครงสร้างโฟลเดอร์ของโปรเจกต์)
+- [💻 เริ่มต้นใช้งาน](#-เริ่มต้นใช้งาน)
+  - [สิ่งที่ต้องจัดเตรียม (Prerequisites)](#สิ่งที่ต้องจัดเตรียม-prerequisites)
+  - [ขั้นตอนการติดตั้ง (Installation)](#ขั้นตอนการติดตั้ง-installation)
+  - [รันระบบเพื่อพัฒนา (Development Server)](#รันระบบเพื่อพัฒนา-development-server)
+- [📋 คำสั่งที่ใช้งานบ่อย](#-คำสั่งที่ใช้งานบ่อย)
+- [🎨 แนวปฏิบัติการพัฒนาและดีไซน์](#-แนวปฏิบัติการพัฒนาและดีไซน์)
+  - [1. ประสิทธิภาพและ Core Web Vitals](#1-ประสิทธิภาพและ-core-web-vitals)
+  - [2. มาตรฐานการแต่งสไตล์ (Styling Standards)](#2-มาตรฐานการแต่งสไตล์-styling-standards)
+  - [3. การปรับแต่ง SEO และ Meta Tags](#3-การปรับแต่ง-seo-และ-meta-tags)
+- [☁️ การสร้างและดีพลอย (Production & Deployment)](#️-การสร้างและดีพลอย-production--deployment)
+  - [ตรวจสอบความสมบูรณ์ของการ Build](#ตรวจสอบความสมบูรณ์ของการ-build)
+  - [การดีพลอยสู่ Vercel](#การดีพลอยสู่-vercel)
+- [📄 สัญญาอนุญาต](#-สัญญาอนุญาต)
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🚀 คุณสมบัติเด่น
 
-| Technology       | Version               | Purpose                                           |
-| :--------------- | :-------------------- | :------------------------------------------------ |
-| **Next.js**      | `16.2.6` (App Router) | React framework for production grade applications |
-| **React**        | `19.2.4`              | Modern component-based view library               |
-| **TypeScript**   | `5.x`                 | Static type safety and rich IDE intelligence      |
-| **Tailwind CSS** | `^4.0.0`              | Utility-first utility styling & design tokens     |
-| **PostCSS**      | `^4.0.0`              | Advanced CSS processing pipeline                  |
-| **ESLint**       | `^9`                  | Static analysis code styling and quality linting  |
+* **⚡ Next.js App Router Architecture:** ใช้สถาปัตยกรรมล่าสุดด้วย React Server Components (RSC) และ Client Components ช่วยเพิ่มความเร็วในการเรนเดอร์, จัดการการดึงข้อมูล และสร้างประสบการณ์ที่ไหลลื่นให้กับผู้ใช้งาน
+* **💅 มาพร้อมกับ Tailwind CSS v4.0:** รองรับเอนจิ้นคอมไพเลอร์ตัวใหม่ล่าสุดผ่าน `@tailwindcss/postcss` ทำให้บิลด์สไตล์ได้รวดเร็วและใช้คลาสได้อย่างยืดหยุ่นมีประสิทธิภาพ
+* **🛡️ รองรับ TypeScript เต็มรูปแบบ:** มีการตั้งค่า Type แบบเข้มงวด (Strict Mode) เพื่อช่วยให้ตัวแก้ไขโค้ดฉลาดขึ้น ป้องกันข้อผิดพลาดตั้งแต่ในขั้นตอนเขียนโค้ด
+* **✨ การออกแบบ Responsive ระดับพรีเมียม:** โครงสร้างเว็บดีไซน์สไตล์โมเดิร์น รองรับทุกขนาดหน้าจอ ผสานโทนสีที่หรูหรา และการตอบสนองที่ลื่นไหล
+* **🔍 โครงสร้าง SEO ครบครัน:** มีโครงสร้าง HTML ที่ดี มีการจัดการ Meta Tags และออกแบบหน้าตาเว็บไซต์เพื่อให้ง่ายต่อการประมวลผลของ Search Engines
 
 ---
 
-## 📂 Project Directory Structure
+## 🛠️ เทคโนโลยีและสถาปัตยกรรม
 
-The repository is structured with a root-level workspace encapsulating the Next.js application subdirectory `my-next-app`:
+| เทคโนโลยีหลัก | เวอร์ชัน | จุดประสงค์การใช้งาน |
+| :--- | :--- | :--- |
+| **Next.js** | `16.2.6` (App Router) | เฟรมเวิร์กหลักของระบบรองรับระบบขนาดใหญ่ |
+| **React** | `19.2.4` | คลังคอมโพเนนต์หลักสำหรับการพัฒนา UI |
+| **TypeScript** | `5.x` | ควบคุมความถูกต้องและชนิดของข้อมูลภายในโค้ด |
+| **Tailwind CSS** | `^4.0.0` | ตกแต่งสไตล์แบบ Utility-First และจัดการธีม |
+| **PostCSS** | `^4.0.0` | ประมวลผลและจัดการทรัพยากรฝั่ง CSS |
+| **ESLint** | `^9` | ตรวจสอบและควบคุมมาตรฐานของเขียนโค้ด |
+
+---
+
+## 📂 โครงสร้างโฟลเดอร์ของโปรเจกต์
+
+ระบบถูกจัดโครงสร้างให้แยกแยะโฟลเดอร์อย่างเป็นสัดส่วน โดยมีตัวแอปพลิเคชัน Next.js อยู่ในไดเรกทอรี `my-next-app` ดังนี้:
 
 ```text
 baby101/
-├── my-next-app/                  # Main Next.js Application
-│   ├── app/                      # Next.js App Router root
-│   │   ├── favicon.ico           # Application favicon icon
-│   │   ├── globals.css           # Global CSS variables & Tailwind v4 layers
-│   │   ├── layout.tsx            # Global layout definition (HTML structure, body)
-│   │   └── page.tsx              # Home / Index page component
-│   ├── public/                   # Static assets (images, vectors, fonts)
-│   ├── eslint.config.mjs         # Static lint configuration (ESLint 9)
-│   ├── next.config.ts            # Next.js configuration settings
-│   ├── postcss.config.mjs        # PostCSS build step configuration
-│   ├── package.json              # App manifest, dependencies & npm scripts
-│   ├── tsconfig.json             # TypeScript compiler settings & alias paths
-│   └── README.md                 # Internal app README
-├── .gitignore                    # Shared Git ignore configurations
-└── README.md                     # Central Master Project README (This File)
+├── my-next-app/                  # โฟลเดอร์หลักสำหรับ Next.js Application
+│   ├── app/                      # โฟลเดอร์เก็บโค้ดระบบ App Router
+│   │   ├── favicon.ico           # ไอคอนขนาดเล็กแสดงบนหน้าเว็บเบราว์เซอร์
+│   │   ├── globals.css           # สไตล์หลักและตัวแปรของ Tailwind v4
+│   │   ├── layout.tsx            # โครงสร้างหลักของหน้าเว็บ (HTML, Body)
+│   │   └── page.tsx              # คอมโพเนนต์หน้าแรกของระบบ (Index Page)
+│   ├── public/                   # ที่เก็บไฟล์ภาพหรือทรัพยากรที่ไม่เปลี่ยนแปลง
+│   ├── eslint.config.mjs         # การตั้งค่ามาตรฐานโค้ด (ESLint 9 Flat Config)
+│   ├── next.config.ts            # การตั้งค่าพารามิเตอร์การทำงานของ Next.js
+│   ├── postcss.config.mjs        # ตั้งค่าการแปลงและจัดการ CSS ในช่วงบิลด์
+│   ├── package.json              # กำหนดรายละเอียดแพ็กเกจและสคริปต์ใช้งาน
+│   ├── tsconfig.json             # ตั้งค่าการแปลงโค้ด TypeScript
+│   └── README.md                 # คู่มือภายในสำหรับตัวแอปย่อย
+├── .gitignore                    # ไฟล์ระบุสิ่งที่ Git ไม่ต้องนำเข้าระบบ
+└── README.md                     # คู่มือภาษาไทยหน้าแรกสุดของโปรเจกต์ (ไฟล์นี้)
 ```
 
 ---
 
-## 💻 Getting Started
+## 💻 เริ่มต้นใช้งาน
 
-Follow these steps to set up and run the project locally on your machine.
+ปฏิบัติตามขั้นตอนต่อไปนี้เพื่อรันโปรเจกต์ขึ้นมาทำงานบนคอมพิวเตอร์ของคุณ
 
-### Prerequisites
+### สิ่งที่ต้องจัดเตรียม (Prerequisites)
 
-Ensure you have the following software installed:
+เครื่องของคุณควรมีการติดตั้งซอฟต์แวร์ต่อไปนี้:
+- **Node.js** (แนะนำเวอร์ชัน LTS เช่น `v20.x` ขึ้นไป)
+- **npm** (ติดตั้งมาพร้อม Node.js) หรือใช้ตัวจัดการอื่นๆ เช่น **pnpm** / **yarn**
 
-- **Node.js** (Recommended: LTS version, `v20.x` or newer)
-- **npm** (Included with Node.js) or **pnpm** / **yarn**
+### ขั้นตอนการติดตั้ง
 
-### Installation
-
-1. Clone or download the repository to your local workspace:
-
+1. ดาวน์โหลดหรือโคลนโปรเจกต์นี้มายังเครื่องของคุณ:
    ```bash
    git clone https://github.com/your-username/baby101.git
    cd baby101
    ```
 
-2. Navigate into the application directory:
-
+2. เดินทางเข้าสู่โฟลเดอร์แอปพลิเคชัน:
    ```bash
    cd my-next-app
    ```
 
-3. Install the project dependencies:
+3. ติดตั้งโปรแกรมและโมดูลต่างๆ ที่จำเป็น:
    ```bash
    npm install
    ```
 
-### Development Server
+### รันระบบเพื่อพัฒนา (Development Server)
 
-Start the development server with hot-reload enabled:
+สั่งเริ่มการทำงานระบบในโหมดพัฒนาที่มีระบบรีเฟรชหน้าเว็บอัตโนมัติ:
 
 ```bash
 npm run dev
-# or
+# หรือ
 yarn dev
-# or
+# หรือ
 pnpm dev
 ```
 
-Once running, open your web browser and navigate to:
+เมื่อระบบพร้อมแล้ว ให้เปิดเว็บเบราว์เซอร์และเข้าไปที่ลิงก์:
 👉 **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## 📋 Available Scripts
+## 📋 คำสั่งที่ใช้งานบ่อย
 
-While inside the `my-next-app` directory, you can invoke the following npm scripts:
+เมื่อทำงานอยู่ภายในโฟลเดอร์ `my-next-app` คุณสามารถพิมพ์คำสั่งต่อไปนี้เพื่อทำงานต่างๆ:
 
-| Script  | Command      | Purpose                                                       |
-| :------ | :----------- | :------------------------------------------------------------ |
-| `dev`   | `next dev`   | Launches the local development server at `localhost:3000`     |
-| `build` | `next build` | Compiles the production-optimized build output                |
-| `start` | `next start` | Starts a Node server running the pre-built production version |
-| `lint`  | `eslint`     | Runs static code analysis to verify coding quality standards  |
-
----
-
-## 🎨 Coding & Design Best Practices
-
-To maintain code cleanliness, premium design, and scalable execution, please adhere to these strict development guidelines:
-
-### 1. Performance & Core Web Vitals
-
-- **Next.js Image (`next/image`):** Always use the optimized `<Image />` component rather than standard HTML `<img>` tags to ensure automatic layout shift prevention, lazy loading, and modern image formats (AVIF/WebP) delivery.
-- **Server vs Client Components:** By default, all components in the App Router are **React Server Components (RSC)**. Only introduce the `"use client"` directive when adding user interactivity (e.g., `useState`, `useEffect`, event listeners).
-
-### 2. Styling Standards
-
-- **Utility and Tokens:** Use the utility classes provided by **Tailwind CSS v4.0**.
-- **Visual Aesthetics:** Prioritize premium visual aesthetics. Incorporate elegant color schemes (e.g. rich dark modes, slate/zinc scales), smooth micro-animations, refined borders, and drop shadows to avoid basic "generic templates" styling.
-
-### 3. SEO & Meta Tags
-
-- **Single `<h1>`:** Ensure each page has exactly one prominent `<h1>` tag indicating the core topic of the view.
-- **Metadata Configuration:** Declare custom page titles, descriptive meta tags, and OpenGraph variables using Next.js Metadata API for best search engine discoverability.
+| คำสั่ง | คำสั่งเต็ม | จุดประสงค์ |
+| :--- | :--- | :--- |
+| `dev` | `next dev` | เปิดเซิร์ฟเวอร์โหมดพัฒนาที่พอร์ต `localhost:3000` |
+| `build` | `next build` | บิลด์แอปพลิเคชันให้พร้อมสำหรับใช้งานจริง (Production) |
+| `start` | `next start` | รันตัวแอปที่ทำการบิลด์เรียบร้อยแล้วในเซิร์ฟเวอร์จำลอง |
+| `lint` | `eslint` | ตรวจสอบคุณภาพและความถูกต้องของการจัดรูปแบบโค้ด |
 
 ---
 
-## ☁️ Production & Deployment
+## 🎨 แนวปฏิบัติการพัฒนาและดีไซน์
 
-### Build Verification
+เพื่อให้โค้ดมีความสะอาด สวยงาม และสามารถขยายงานได้อย่างราบรื่น ขอแนะนำให้ปฏิบัติตามแนวทางเหล่านี้:
 
-Before committing or submitting a PR, always verify that your TypeScript types compile and the production bundles compile cleanly:
+### 1. ประสิทธิภาพและ Core Web Vitals
+- **การใช้ Image Component (`next/image`):** แนะนำให้ใช้ตัวเลือก `<Image />` ที่จัดเตรียมโดย Next.js แทนที่จะเป็นแท็ก `<img>` แบบปกติ เพื่อช่วยบีบอัดรูป ป้องกันปัญหาเลย์เอาต์ขยับ (CLS) และโหลดรูปภาพเฉพาะเมื่ออยู่บนหน้าจอ (Lazy Loading) โดยอัตโนมัติ
+- **การแยกแยะคอมโพเนนต์:** โดยค่าเริ่มต้น Next.js จะมองโค้ดทุกตัวเป็น Server Component หากชิ้นส่วนใดมีการใช้ State หรือ Effects ให้อ้างสิทธิ์ด้วย `"use client"` ด้านบนสุดของไฟล์ย่อยนั้นๆ
+
+### 2. มาตรฐานการแต่งสไตล์ (Styling Standards)
+- **การประยุกต์ใช้ Utility:** ใช้คลาสต่างๆ ของ **Tailwind CSS v4.0** เป็นหลักในการทำงาน
+- **ความสวยงามพรีเมียม:** พยายามเลือกใช้ชุดสีที่ลงตัว ทันสมัย (เช่น ชุดสี Slate, Zinc หรือการทำ Dark Mode) และมีเอฟเฟกต์การเคลื่อนไหวที่ละมุนละไมเมื่อชี้เมาส์ เพื่อยกระดับประสบการณ์ให้รู้สึกเป็นมืออาชีพ
+
+### 3. การปรับแต่ง SEO และ Meta Tags
+- **การมี `<h1>` เดียว:** ในหนึ่งหน้าเว็บ ควรมุ่งเน้นให้มีแท็ก `<h1>` เพียงแค่ตัวเดียวเท่านั้น เพื่อเพิ่มประสิทธิภาพของการวิเคราะห์เนื้อหาของระบบเสิร์ชเอนจิ้น
+- **ระบบ Metadata:** ประกาศใช้ Metadata API ของ Next.js ในไฟล์ Layout หรือ Page เพื่อกำหนดหัวข้อหน้าเว็บ (Title) และภาพสำหรับการแชร์บนโซเชียลมีเดีย (OpenGraph)
+
+---
+
+## ☁️ การสร้างและดีพลอย (Production & Deployment)
+
+### ตรวจสอบความสมบูรณ์ของการ Build
+
+ก่อนที่คุณจะทำการส่งงานหรือพุชโค้ดขึ้น Git แนะนำให้ทดสอบการ Build โปรแกรมบนเครื่องตนเองก่อน เพื่อยืนยันว่าโค้ดไม่มี Error หรือติดปัญหา Type ใดๆ:
 
 ```bash
 npm run build
 ```
 
-This ensures zero build-time warnings or typescript errors and analyzes the bundle weight size.
+### การดีพลอยสู่ Vercel
 
-### Deploying to Vercel
+ตัวแอปนี้สนับสนุนการดีพลอยขึ้นระบบคลาวด์ [Vercel](https://vercel.com/new) ได้ทันที:
 
-The easiest and most optimized way to deploy this Next.js project is via the [Vercel Platform](https://vercel.com/new):
-
-1. Commit all your changes and push them to a remote Git repository (GitHub, GitLab, Bitbucket).
-2. Connect your Git account to Vercel.
-3. Import the repository and select **Next.js** as the project preset.
-4. Set the **Root Directory** settings to `my-next-app` in the Vercel project configuration dashboard.
-5. Click **Deploy**. Vercel will automatically build and host the application with global CDN coverage.
+1. นำโค้ดขึ้นระบบเก็บซอร์สโค้ดของคุณ (เช่น GitHub, GitLab, Bitbucket)
+2. เชื่อมบัญชีของคุณและเลือกปุ่มอิมพอร์ต (Import) โปรเจกต์ในหน้าของ Vercel
+3. เลือกเฟรมเวิร์กที่ต้องการเป็น **Next.js**
+4. ทำการเลือกหัวข้อ **Root Directory** ในส่วนการตั้งค่าให้ชี้ไปที่ `my-next-app`
+5. คลิก **Deploy** ระบบ Vercel จะสร้างลิงก์สำหรับเข้าชมงานแบบใช้งานจริงให้อัตโนมัติ
 
 ---
 
-## 📄 License
+## 📄 สัญญาอนุญาต
 
-This project is licensed under the [MIT License](LICENSE) - see the LICENSE details for permissions and limitations.
+โปรเจกต์นี้เปิดให้ใช้งานฟรีตามเงื่อนไขของสัญญาอนุญาต [MIT License](LICENSE)

@@ -1,101 +1,101 @@
-# 🚀 Next.js Core Application (`my-next-app`)
+# 🚀 แอปพลิเคชันหลัก Next.js (`my-next-app`)
 
-This folder contains the core web application for the **Baby 101** project. It is built as a modern, high-performance Next.js application using React Server Components, TypeScript, and the next-generation Tailwind CSS v4 compiler.
-
----
-
-## 📌 Table of Contents
-
-- [🛠️ Tech Stack Spec](#️-tech-stack-spec)
-- [💻 Scripts Reference](#-scripts-reference)
-- [📂 File Structure Highlights](#-file-structure-highlights)
-- [⚡ Next.js v16 & React 19 Conventions](#-nextjs-v16--react-19-conventions)
-- [💅 Tailwind CSS v4.0 Guideline](#-tailwind-css-v40-guideline)
-- [🧪 Quality Assurance & Linting](#-quality-assurance--linting)
+โฟลเดอร์นี้เก็บซอร์สโค้ดและส่วนประกอบหลักของเว็บแอปพลิเคชันในโปรเจกต์ **Baby 101** พัฒนาขึ้นโดยอ้างอิงเฟรมเวิร์ก Next.js เวอร์ชันล่าสุด ทำงานร่วมกับ React Server Components, TypeScript และคอมไพเลอร์รุ่นถัดไปของ Tailwind CSS v4.0
 
 ---
 
-## 🛠️ Tech Stack Spec
+## 📌 สารบัญ
 
-- **Framework:** Next.js (App Router)
-- **View Engine:** React 19 (React Server Components enabled by default)
-- **Language:** TypeScript (Strict compiler flags)
-- **Styling Engine:** Tailwind CSS v4.0 (utilizing the new ultra-fast rust compilation engine)
-- **CSS Processor:** PostCSS (via `@tailwindcss/postcss`)
-- **Linter:** ESLint (v9 flat config file format)
+- [🛠️ รายละเอียดเทคโนโลยี](#️-รายละเอียดเทคโนโลยี)
+- [💻 คำสั่งสคริปต์ที่พร้อมใช้งาน](#-คำสั่งสคริปต์ที่พร้อมใช้งาน)
+- [📂 ไฟล์สำคัญในโปรเจกต์](#-ไฟล์สำคัญในโปรเจกต์)
+- [⚡ ข้อตกลงและหลักปฏิบัติ Next.js v16 & React 19](#-ข้อตกลงและหลักปฏิบัติ-nextjs-v16--react-19)
+- [💅 คู่มือการใช้ Tailwind CSS v4.0](#-คู่มือการใช้-tailwind-css-v40)
+- [🧪 การตรวจสอบคุณภาพโค้ด](#-การตรวจสอบคุณภาพโค้ด)
 
 ---
 
-## 💻 Scripts Reference
+## 🛠️ รายละเอียดเทคโนโลยี
 
-Execute these commands from inside this subdirectory:
+- **เฟรมเวิร์กหลัก:** Next.js (ระบบ App Router)
+- **เครื่องมือจัดการวิว:** React 19 (เปิดใช้งานระบบ React Server Components เป็นค่าเริ่มต้น)
+- **ภาษาโปรแกรม:** TypeScript (เปิดใช้โหมดตรวจจับความถูกต้องแบบเข้มงวด)
+- **สไตล์ชีท:** Tailwind CSS v4.0 (ทำงานบนเอนจิ้นคอมไพเลอร์ที่เขียนด้วยภาษา Rust เพิ่มความเร็วในการประมวลผลสูงสุด)
+- **ตัวจัดการไฟล์ CSS:** PostCSS (ผ่านการเรียกใช้ปลั๊กอิน `@tailwindcss/postcss`)
+- **มาตรฐานการเขียนโค้ด:** ESLint (ใช้งานรูปแบบไฟล์ตั้งค่า ESLint 9 Flat Config)
 
-### Development Mode
-Starts a local development server with instant Hot Module Replacement (HMR):
+---
+
+## 💻 คำสั่งสคริปต์ที่พร้อมใช้งาน
+
+พิมพ์คำสั่งเหล่านี้ใน Terminal เมื่ออยู่ในไดเรกทอรีย่อยนี้:
+
+### โหมดพัฒนา (Development Mode)
+เปิดเซิร์ฟเวอร์สำหรับพัฒนาที่จะคอมไพล์โค้ดใหม่ให้อัตโนมัติเมื่อมีการเปลี่ยนแปลง:
 ```bash
 npm run dev
 ```
-Open **[http://localhost:3000](http://localhost:3000)** to view your live changes.
+เปิดเบราว์เซอร์และเดินทางไปที่: **[http://localhost:3000](http://localhost:3000)**
 
-### Production Build
-Generates a highly optimized, minified production build containing static pages, server components, and asset chunks:
+### ทำการสร้างระบบสำหรับโปรดักชัน (Production Build)
+สร้างโค้ดปลายทางสำหรับนำไปรันบนเซิร์ฟเวอร์จริง โดยทำการย่อและตัดโค้ดส่วนเกิน (Minified & Optimized):
 ```bash
 npm run build
 ```
 
-### Production Execution
-Starts the Next.js server in production mode utilizing the build artifacts from the step above:
+### รันเซิร์ฟเวอร์จริง (Production Execution)
+เปิดเซิร์ฟเวอร์เพื่อรันไฟล์ที่ผ่านการบิลด์จากขั้นตอนข้างต้นเรียบร้อยแล้ว:
 ```bash
 npm run start
 ```
 
-### Code Quality Check
-Executes code analysis rules using ESLint to verify that code meets team quality guidelines:
+### ตรวจทานคุณภาพโค้ด (Code Quality Check)
+สั่งสแกนโครงสร้างโค้ดทั้งหมดเพื่อหาจุดผิดพลาดหรือจุดที่ไม่ตรงกับมาตรฐานการจัดรูปแบบ:
 ```bash
 npm run lint
 ```
 
 ---
 
-## 📂 File Structure Highlights
+## 📂 ไฟล์สำคัญในโปรเจกต์
 
-Key configuration files and entry points inside this directory:
+ไฟล์ตั้งค่าและจุดเริ่มต้นสำคัญในโฟลเดอร์นี้ประกอบด้วย:
 
-* **[`app/page.tsx`](file:///D:/Baby/baby101/my-next-app/app/page.tsx):** Main index view, rendered as a React Server Component.
-* **[`app/layout.tsx`](file:///D:/Baby/baby101/my-next-app/app/layout.tsx):** Root layout wrapping all pages. Declares global metadata and loads styles.
-* **[`app/globals.css`](file:///D:/Baby/baby101/my-next-app/app/globals.css):** Global stylesheet importing Tailwind CSS components and specifying theme tokens.
-* **[`eslint.config.mjs`](file:///D:/Baby/baby101/my-next-app/eslint.config.mjs):** Custom code linting rules under the new ESLint Flat Config syntax.
-* **[`next.config.ts`](file:///D:/Baby/baby101/my-next-app/next.config.ts):** System settings and build parameters for Next.js.
-* **[`tsconfig.json`](file:///D:/Baby/baby101/my-next-app/tsconfig.json):** Standardized compiler configuration ensuring strict TypeScript syntax checks.
-
----
-
-## ⚡ Next.js v16 & React 19 Conventions
-
-Please respect the modern architectural patterns configured in this application:
-
-1. **RSC First:** Keep components as **React Server Components (RSC)** to leverage lower client bundle sizes and direct database/API calling safely.
-2. **Client Elements:** Use `"use client"` exclusively at the topmost boundary of components that rely on user events (clicks, input), browser APIs, or React lifecycle hooks.
-3. **Data Fetching:** Standardize on server-side `fetch` routines inside page modules to automatically benefit from request deduplication, cache controls, and incremental static regeneration (ISR).
+* **[`app/page.tsx`](file:///D:/Baby/baby101/my-next-app/app/page.tsx):** หน้าหลัก (Index View) ทำงานเป็น React Server Component
+* **[`app/layout.tsx`](file:///D:/Baby/baby101/my-next-app/app/layout.tsx):** เลย์เอาต์แม่แบบระดับนอกสุดของระบบ กำหนดโครงสร้าง HTML โหลดไฟล์สไตล์ และตั้งค่า Metadata หลัก
+* **[`app/globals.css`](file:///D:/Baby/baby101/my-next-app/app/globals.css):** ไฟล์สไตล์ชีทส่วนกลางสำหรับนำเข้าคลาสของ Tailwind และกำหนดค่าตัวแปร (CSS Variables)
+* **[`eslint.config.mjs`](file:///D:/Baby/baby101/my-next-app/eslint.config.mjs):** ไฟล์ตั้งค่าควบคุมระเบียบการเขียนโค้ดในรูปแบบ Flat Config
+* **[`next.config.ts`](file:///D:/Baby/baby101/my-next-app/next.config.ts):** ตัวปรับแต่งสเปกการบิลด์และการทำงานของ Next.js
+* **[`tsconfig.json`](file:///D:/Baby/baby101/my-next-app/tsconfig.json):** ไฟล์กำหนดเป้าหมายการแปลงซอร์สโค้ดและขอบเขตความปลอดภัยของ TypeScript
 
 ---
 
-## 💅 Tailwind CSS v4.0 Guideline
+## ⚡ ข้อตกลงและหลักปฏิบัติ Next.js v16 & React 19
 
-Tailwind CSS v4.0 is fully set up in this project:
-- Styles are imported globally in [`app/globals.css`](file:///D:/Baby/baby101/my-next-app/app/globals.css) via `@import "tailwindcss";`.
-- Theme values are configured using CSS custom properties inside the `@theme inline { ... }` block in `globals.css` rather than a separate `tailwind.config.js` file.
-- Custom fonts and utility color overrides can be easily integrated using the native CSS variable design syntax.
+โปรดตระหนักและยึดถือวิธีปฏิบัติเหล่านี้ในการเขียนโค้ดเพื่อเสถียรภาพสูงสุดของระบบ:
+
+1. **เน้น Server Component ก่อน:** พยายามพัฒนาชิ้นงานให้อยู่ในรูปแบบ React Server Component (RSC) ให้ได้มากที่สุด เพื่อลดขนาดไฟล์ Bundle ที่ผู้ใช้ต้องดาวน์โหลด และเพิ่มความปลอดภัยในการดึงข้อมูลจาก Server
+2. **ใช้โหมด Client เมื่อจำเป็น:** ระบุคำว่า `"use client"` ไว้ที่ส่วนบนสุดของหน้าหรือคอมโพเนนต์ย่อยก็ต่อเมื่อมีเหตุต้องใช้งาน Event Listeners (เช่น onClick), มีการเรียกใช้เบราว์เซอร์ API หรือใช้ React hooks เช่น `useState` และ `useEffect`
+3. **การดึงข้อมูลอย่างชาญฉลาด:** แนะนำให้ใช้ตัวจัดการ `fetch` ภายในตัวคอมโพเนนต์ระดับ Server เพื่อให้แอปได้รับสิทธิ์การทำ Request Deduplication, จัดเก็บ Cache และรองรับระบบ Incremental Static Regeneration (ISR) ทันที
 
 ---
 
-## 🧪 Quality Assurance & Linting
+## 💅 คู่มือการใช้ Tailwind CSS v4.0
 
-Keep your editor's ESLint and Prettier plugins active. Before submitting any changes, it is highly recommended to run the build check locally:
+Tailwind CSS เวอร์ชัน 4.0 ได้รับการกำหนดค่าและเตรียมพร้อมให้ใช้งานอย่างสมบูรณ์แบบแล้ว:
+- นำเข้าระบบหลักผ่านทางไฟล์ [`app/globals.css`](file:///D:/Baby/baby101/my-next-app/app/globals.css) โดยใช้คำสั่ง `@import "tailwindcss";`
+- การปรับเปลี่ยนและเพิ่มธีมถูกระบุด้วยสไตล์ CSS Variables โดยตรงภายใต้บล็อก `@theme inline { ... }` ภายในไฟล์ `globals.css` แทนการใช้ไฟล์ `tailwind.config.js` แยกส่วนตามรูปแบบเดิม
+- สามารถสร้างคลาสสลับโทนสี แบรนดิ้ง หรือฟอนต์พิเศษได้อย่างรวดเร็ว
+
+---
+
+## 🧪 การตรวจสอบคุณภาพโค้ด
+
+แนะนำให้เปิดใช้งานปลั๊กอินเสริม เช่น ESLint และ Prettier บน Editor ของคุณไว้ตลอดเวลา และก่อนที่จะส่งโค้ดเข้าระบบ Git เสมอ ขอแนะนำให้ทดลองรันคำสั่งตรวจสอบเหล่านี้บนคอมพิวเตอร์ของคุณเองก่อน:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-This guarantees that all files conform to strict style standards and compile properly without errors.
+ขั้นตอนนี้จะช่วยการันตีได้ว่า โค้ดทั้งหมดของคุณสะอาด ถูกต้องตามกฎ และสามารถ Build รันจริงได้อย่างปลอดภัย
