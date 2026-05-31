@@ -1,0 +1,372 @@
+{
+  "info": {
+    "name": "baby101 API",
+    "description": "Postman collection for baby101 NestJS Backend API - with Functions table",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "jwtToken",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "functionId",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwtToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "Register a new user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register a new user account"
+          }
+        },
+        {
+          "name": "Login and get JWT token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access_token) {",
+                  "    pm.collectionVariables.set('jwtToken', jsonData.access_token);",
+                  "    pm.collectionVariables.set('userId', jsonData.user?.id || '');",
+                  "}",
+                  "console.log('Login response:', jsonData);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login with email and password, returns JWT token"
+          }
+        }
+      ]
+    },
+    {
+      "name": "FUNCTIONS",
+      "item": [
+        {
+          "name": "Create a new function",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.id) {",
+                  "    pm.collectionVariables.set('functionId', jsonData.id);",
+                  "}",
+                  "console.log('Function created:', jsonData);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"generate_image\",\n  \"description\": \"Generate AI images using DALL-E\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions"]
+            },
+            "description": "Create a new function"
+          }
+        },
+        {
+          "name": "Get all functions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions"]
+            },
+            "description": "Get list of all functions"
+          }
+        },
+        {
+          "name": "Get a function by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "Get a specific function by ID"
+          }
+        },
+        {
+          "name": "Update a function",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description\",\n  \"isActive\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "Update function details"
+          }
+        },
+        {
+          "name": "Delete a function",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "Delete a function"
+          }
+        }
+      ]
+    },
+    {
+      "name": "USERS",
+      "item": [
+        {
+          "name": "Create a new user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "description": "Create a new user (public endpoint)"
+          }
+        },
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "description": "Get list of all users (JWT required)"
+          }
+        },
+        {
+          "name": "Get a user by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "Get a specific user by ID (JWT required)"
+          }
+        },
+        {
+          "name": "Update a user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "Update user details (JWT required)"
+          }
+        },
+        {
+          "name": "Delete a user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "Delete a user (JWT required)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "TOKENS",
+      "item": [
+        {
+          "name": "Create a token for user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"functionId\": \"{{functionId}}\",\n  \"maxLimit\": 100\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens"]
+            },
+            "description": "Create a new token with max limit for a user (requires functionId)"
+          }
+        },
+        {
+          "name": "Get all tokens for user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens"]
+            },
+            "description": "List all tokens for a user"
+          }
+        },
+        {
+          "name": "Get a specific token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}"]
+            },
+            "description": "Get details of a specific token"
+          }
+        },
+        {
+          "name": "Use token (decrement)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}/use",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}", "use"]
+            },
+            "description": "Use a token (decrements remaining count)"
+          }
+        },
+        {
+          "name": "Refill token",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}/refill",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}", "refill"]
+            },
+            "description": "Refill token to maxLimit"
+          }
+        }
+      ]
+    }
+  ]
+}
