@@ -1,5 +1,5 @@
-@baseUrl = http://localhost:3000
-@port = 3000
+@baseUrl = http://localhost:3001
+@port = 3001
 
 ###############################################################################
 # AUTH - Authentication Endpoints
@@ -134,3 +134,29 @@ Authorization: Bearer YOUR_JWT_TOKEN_HERE
 # 3. POST /users/{userId}/tokens -> create token using functionId
 # 4. POST /users/{userId}/tokens/{functionId}/use -> use the token
 ###############################################################################
+
+###############################################################################
+# STORAGE WORKSHOP - S3-compatible upload flow
+###############################################################################
+
+### Create presigned upload URL
+POST {{baseUrl}}/storage/presign-upload
+Content-Type: application/json
+
+{
+  "filename": "avatar.png",
+  "contentType": "image/png",
+  "size": 120000
+}
+
+### Save profile metadata after upload
+POST {{baseUrl}}/profiles
+Content-Type: application/json
+
+{
+  "nickname": "Mint",
+  "avatarKey": "profiles/2026-06-02/example.png"
+}
+
+### List profile cards
+GET {{baseUrl}}/profiles

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="Object storage architecture">
+  <rect width="1200" height="700" fill="#f8fafc"/>
+  <text x="600" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#0f172a">Architecture ที่ใช้จริง</text>
+  <rect x="80" y="245" width="210" height="150" rx="24" fill="#e0f2fe" stroke="#0284c7" stroke-width="4"/>
+  <text x="185" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#075985">Frontend</text>
+  <text x="185" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#0c4a6e">เลือกไฟล์ / upload</text>
+  <rect x="430" y="245" width="210" height="150" rx="24" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+  <text x="535" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#14532d">Backend</text>
+  <text x="535" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#166534">auth / validate / sign</text>
+  <rect x="825" y="130" width="260" height="160" rx="24" fill="#ffedd5" stroke="#ea580c" stroke-width="4"/>
+  <text x="955" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#9a3412">Object Storage</text>
+  <text x="955" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#9a3412">bucket + object key</text>
+  <rect x="825" y="410" width="260" height="130" rx="24" fill="#ede9fe" stroke="#7c3aed" stroke-width="4"/>
+  <text x="955" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#4c1d95">Database</text>
+  <path d="M290 292h136" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="360" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">ขอ URL</text>
+  <path d="M430 365H294" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="360" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">คืน signed URL</text>
+  <path d="M640 285 C720 200,760 200,825 205" stroke="#334155" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <text x="735" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">sign request</text>
+  <path d="M290 250 C500 80,670 80,825 160" stroke="#0f766e" stroke-width="6" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="520" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0f766e">PUT file ตรงไป storage</text>
+  <path d="M640 365 C720 440,760 455,825 470" stroke="#334155" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <text x="720" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">save metadata</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+</svg>

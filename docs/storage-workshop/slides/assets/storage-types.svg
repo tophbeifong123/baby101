@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="Storage types comparison">
+  <rect width="1200" height="700" fill="#f8fafc"/>
+  <text x="600" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#0f172a">Storage มีหลายแบบ เลือกตามงาน</text>
+  <g transform="translate(70 145)">
+    <rect width="310" height="430" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+    <rect x="82" y="60" width="146" height="190" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+    <rect x="105" y="85" width="100" height="18" rx="9" fill="#60a5fa"/>
+    <rect x="105" y="122" width="100" height="18" rx="9" fill="#60a5fa"/>
+    <rect x="105" y="159" width="100" height="18" rx="9" fill="#60a5fa"/>
+    <circle cx="155" cy="220" r="12" fill="#2563eb"/>
+    <text x="155" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#1e3a8a">Block</text>
+    <text x="155" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">เหมือน disk</text>
+    <text x="155" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">เหมาะกับ DB / VM</text>
+  </g>
+  <g transform="translate(445 145)">
+    <rect width="310" height="430" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+    <path d="M70 145h78l24 34h68v145H70z" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+    <path d="M70 180h170" stroke="#16a34a" stroke-width="4"/>
+    <rect x="100" y="215" width="110" height="20" rx="10" fill="#86efac"/>
+    <rect x="100" y="252" width="82" height="20" rx="10" fill="#86efac"/>
+    <text x="155" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#14532d">File</text>
+    <text x="155" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">เหมือน shared folder</text>
+    <text x="155" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">มี path / folder</text>
+  </g>
+  <g transform="translate(820 145)">
+    <rect width="310" height="430" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+    <rect x="70" y="112" width="170" height="170" rx="24" fill="#ffedd5" stroke="#ea580c" stroke-width="4"/>
+    <path d="M70 158h170" stroke="#ea580c" stroke-width="4"/>
+    <circle cx="118" cy="218" r="20" fill="#fb923c"/>
+    <rect x="150" y="199" width="58" height="38" rx="10" fill="#fed7aa"/>
+    <text x="155" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#9a3412">Object</text>
+    <text x="155" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">เหมือนกล่องผ่าน API</text>
+    <text x="155" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#334155">รูป / PDF / video</text>
+  </g>
+</svg>

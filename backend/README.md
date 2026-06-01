@@ -25,7 +25,9 @@ pnpm install
 ### 2. Start Database
 
 ```bash
+cd ..
 docker-compose up -d
+cd backend
 ```
 
 ### 3. Configure Environment
@@ -38,8 +40,8 @@ Copy `.env.example` to `.env` and update values if needed.
 pnpm run start:dev
 ```
 
-Server runs at `http://localhost:3000`
-Swagger docs at `http://localhost:3000/api/docs`
+Server runs at `http://localhost:3001`
+Swagger docs at `http://localhost:3001/api/docs`
 
 ## API Endpoints
 
@@ -80,6 +82,14 @@ Swagger docs at `http://localhost:3000/api/docs`
 | POST | `/users/:userId/tokens/:functionId/use` | Use token | JWT |
 | PUT | `/users/:userId/tokens/:functionId/refill` | Refill token | JWT |
 
+### Storage Workshop
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/storage/presign-upload` | Create temporary upload URL | No |
+| POST | `/profiles` | Save nickname and avatar object key | No |
+| GET | `/profiles` | List profile cards with signed image URLs | No |
+
 ## Workflow Example
 
 ```bash
@@ -112,6 +122,8 @@ Tokens auto-refill every **5 minutes** via cron job.
 PostgreSQL 16 runs via Docker on port `5432`.
 
 pgAdmin4 available at `http://localhost:5050` (admin@admin.com / admin)
+
+MinIO Console available at `http://localhost:9001` (minioadmin / minioadmin)
 
 ## Scripts
 

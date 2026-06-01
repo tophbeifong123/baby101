@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import configuration from './config/configuration';
+import databaseConfiguration from './config/configuration';
+import storageConfiguration from './config/storage.configuration';
 import { UsersModule } from './users/users.module';
 import { TokensModule } from './tokens/tokens.module';
 import { AuthModule } from './auth/auth.module';
 import { FunctionsModule } from './functions/functions.module';
+import { StorageModule } from './storage/storage.module';
+import { ProfilesModule } from './profiles/profiles.module';
 import { User } from './users/entities/user.entity';
 import { UserToken } from './tokens/entities/user-token.entity';
 import { Function } from './functions/entities/function.entity';
+import { Profile } from './profiles/entities/profile.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configuration],
+      load: [databaseConfiguration, storageConfiguration],
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -25,7 +29,7 @@ import { Function } from './functions/entities/function.entity';
         username: configService.get('database.username'),
         password: configService.get('database.password'),
         database: configService.get('database.database'),
-        entities: [User, UserToken, Function],
+        entities: [User, UserToken, Function, Profile],
         synchronize: true, // Set to false in production
       }),
       inject: [ConfigService],
@@ -34,6 +38,8 @@ import { Function } from './functions/entities/function.entity';
     TokensModule,
     AuthModule,
     FunctionsModule,
+    StorageModule,
+    ProfilesModule,
   ],
 })
 export class AppModule {}

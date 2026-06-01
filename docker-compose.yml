@@ -1,4 +1,5 @@
 services:
+  # Backend & DB workshop services from the backend/database session.
   postgres:
     image: postgres:16
     container_name: nestjs_postgres
@@ -30,6 +31,28 @@ services:
       postgres:
         condition: service_healthy
 
+  # Storage workshop service.
+  # MinIO is an S3-compatible object storage that we run locally so students can
+  # learn bucket/object-key concepts before moving to AIStor/AWS S3 later.
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: baby101_minio
+    command: server /data --console-address ":9001"
+    environment:
+      # Demo credentials only. Never use these in production.
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      # Allow the browser app to PUT files directly to MinIO with presigned URLs.
+      MINIO_API_CORS_ALLOW_ORIGIN: "http://localhost:3000,http://127.0.0.1:3000"
+    ports:
+      # API port: backend signs requests against this endpoint.
+      - "${MINIO_API_PORT:-9000}:9000"
+      # Console port: students open this UI to create buckets and inspect files.
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_data:/data
+
 volumes:
   postgres_data:
   pgadmin_data:
+  minio_data:
