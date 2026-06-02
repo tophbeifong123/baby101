@@ -25,15 +25,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{backendBaseUrl}}/profiles",
-          "host": [
-            "{{backendBaseUrl}}"
-          ],
-          "path": [
-            "profiles"
-          ]
-        },
+        "url": "{{backendBaseUrl}}/profiles",
         "description": "ใช้เช็กว่า NestJS backend และ PostgreSQL เปิดอยู่แล้วหรือยัง ถ้าได้ array แปลว่าพร้อมเริ่ม lab"
       },
       "response": []
@@ -73,16 +65,7 @@
           "mode": "raw",
           "raw": "{\n  \"filename\": \"avatar.png\",\n  \"contentType\": \"image/png\",\n  \"size\": 120000\n}"
         },
-        "url": {
-          "raw": "{{backendBaseUrl}}/storage/presign-upload",
-          "host": [
-            "{{backendBaseUrl}}"
-          ],
-          "path": [
-            "storage",
-            "presign-upload"
-          ]
-        },
+        "url": "{{backendBaseUrl}}/storage/presign-upload",
         "description": "Backend ตรวจ type/size แล้วออก presigned URL สั้นๆ ให้ frontend ใช้ upload ไฟล์ไป MinIO"
       },
       "response": []
@@ -100,15 +83,10 @@
         "body": {
           "mode": "file",
           "file": {
-            "src": []
+            "src": ""
           }
         },
-        "url": {
-          "raw": "{{uploadUrl}}",
-          "host": [
-            "{{uploadUrl}}"
-          ]
-        },
+        "url": "{{uploadUrl}}",
         "description": "เลือกไฟล์รูป PNG ใน tab Body > binary/file ก่อนกด Send จุดนี้คือการ upload ไป MinIO โดยตรง ไม่ผ่าน backend"
       },
       "response": []
@@ -143,15 +121,7 @@
           "mode": "raw",
           "raw": "{\n  \"nickname\": \"{{nickname}}\",\n  \"avatarKey\": \"{{avatarKey}}\"\n}"
         },
-        "url": {
-          "raw": "{{backendBaseUrl}}/profiles",
-          "host": [
-            "{{backendBaseUrl}}"
-          ],
-          "path": [
-            "profiles"
-          ]
-        },
+        "url": "{{backendBaseUrl}}/profiles",
         "description": "หลัง upload ไฟล์เสร็จ backend บันทึกแค่ metadata/object key ลง PostgreSQL"
       },
       "response": []
@@ -176,15 +146,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{backendBaseUrl}}/profiles",
-          "host": [
-            "{{backendBaseUrl}}"
-          ],
-          "path": [
-            "profiles"
-          ]
-        },
+        "url": "{{backendBaseUrl}}/profiles",
         "description": "Backend อ่าน metadata จาก PostgreSQL แล้วสร้าง signed read URL กลับมาให้ frontend ใช้แสดงรูป"
       },
       "response": []
