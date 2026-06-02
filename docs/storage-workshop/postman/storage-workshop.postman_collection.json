@@ -1,0 +1,156 @@
+{
+  "info": {
+    "_postman_id": "a6f90bd0-5461-4e84-bb43-e878d9849e6e",
+    "name": "Baby101 Storage Workshop",
+    "description": "Student-friendly API collection for the Baby101 storage workshop. Import the local environment first, then run requests in order.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 Backend Ready Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Backend and database should respond', function () {",
+              "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.json()).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{backendBaseUrl}}/profiles",
+        "description": "ใช้เช็กว่า NestJS backend และ PostgreSQL เปิดอยู่แล้วหรือยัง ถ้าได้ array แปลว่าพร้อมเริ่ม lab"
+      },
+      "response": []
+    },
+    {
+      "name": "01 Create Presigned Upload URL",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Backend returns an upload ticket', function () {",
+              "  pm.response.to.have.status(201);",
+              "  const body = pm.response.json();",
+              "  pm.expect(body.bucket).to.eql('club-assets');",
+              "  pm.expect(body.key).to.be.a('string');",
+              "  pm.expect(body.uploadUrl).to.include('localhost:9000');",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.environment.set('avatarKey', body.key);",
+              "pm.environment.set('uploadUrl', body.uploadUrl);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"filename\": \"avatar.png\",\n  \"contentType\": \"image/png\",\n  \"size\": 120000\n}"
+        },
+        "url": "{{backendBaseUrl}}/storage/presign-upload",
+        "description": "Backend ตรวจ type/size แล้วออก presigned URL สั้นๆ ให้ frontend ใช้ upload ไฟล์ไป MinIO"
+      },
+      "response": []
+    },
+    {
+      "name": "02 Upload File To MinIO With Presigned URL",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "image/png"
+          }
+        ],
+        "body": {
+          "mode": "file",
+          "file": {
+            "src": ""
+          }
+        },
+        "url": "{{uploadUrl}}",
+        "description": "เลือกไฟล์รูป PNG ใน tab Body > binary/file ก่อนกด Send จุดนี้คือการ upload ไป MinIO โดยตรง ไม่ผ่าน backend"
+      },
+      "response": []
+    },
+    {
+      "name": "03 Save Profile Metadata",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Profile metadata is saved in PostgreSQL', function () {",
+              "  pm.response.to.have.status(201);",
+              "  const body = pm.response.json();",
+              "  pm.expect(body.nickname).to.eql(pm.environment.get('nickname'));",
+              "  pm.expect(body.avatarKey).to.eql(pm.environment.get('avatarKey'));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nickname\": \"{{nickname}}\",\n  \"avatarKey\": \"{{avatarKey}}\"\n}"
+        },
+        "url": "{{backendBaseUrl}}/profiles",
+        "description": "หลัง upload ไฟล์เสร็จ backend บันทึกแค่ metadata/object key ลง PostgreSQL"
+      },
+      "response": []
+    },
+    {
+      "name": "04 List Profiles",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Profiles list is returned', function () {",
+              "  pm.response.to.have.status(200);",
+              "  const body = pm.response.json();",
+              "  pm.expect(body).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{backendBaseUrl}}/profiles",
+        "description": "Backend อ่าน metadata จาก PostgreSQL แล้วสร้าง signed read URL กลับมาให้ frontend ใช้แสดงรูป"
+      },
+      "response": []
+    }
+  ]
+}
+ 

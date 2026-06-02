@@ -1,0 +1,162 @@
+@baseUrl = http://localhost:3001
+@port = 3001
+
+###############################################################################
+# AUTH - Authentication Endpoints
+###############################################################################
+
+### Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Login and get JWT token
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+###############################################################################
+# FUNCTIONS - Function Management (JWT Required)
+###############################################################################
+
+### Create a new function
+POST {{baseUrl}}/functions
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "name": "generate_image",
+  "description": "Generate AI images using DALL-E"
+}
+
+### Get all functions
+GET {{baseUrl}}/functions
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Get a function by ID
+GET {{baseUrl}}/functions/FUNCTION_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Update a function
+PATCH {{baseUrl}}/functions/FUNCTION_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "description": "Updated description",
+  "isActive": true
+}
+
+### Delete a function
+DELETE {{baseUrl}}/functions/FUNCTION_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###############################################################################
+# USERS - User Management (JWT Required after login)
+###############################################################################
+
+### Create a new user (public)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "password": "password123"
+}
+
+### Get all users (JWT required)
+GET {{baseUrl}}/users
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Get a user by ID (JWT required)
+GET {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Update a user (JWT required)
+PATCH {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "name": "Updated Name",
+  "email": "updated@example.com"
+}
+
+### Delete a user (JWT required)
+DELETE {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###############################################################################
+# TOKENS - Token Quota Management (JWT Required)
+# Note: Create a function first, then use its ID to create tokens
+###############################################################################
+
+### Create a token for user (requires functionId from functions table)
+POST {{baseUrl}}/users/USER_ID_HERE/tokens
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "functionId": "FUNCTION_ID_HERE",
+  "maxLimit": 100
+}
+
+### Get all tokens for a user
+GET {{baseUrl}}/users/USER_ID_HERE/tokens
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Get a specific token
+GET {{baseUrl}}/users/USER_ID_HERE/tokens/FUNCTION_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Use a token (decrement remaining count)
+POST {{baseUrl}}/users/USER_ID_HERE/tokens/FUNCTION_ID_HERE/use
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Refill a token to maxLimit
+PUT {{baseUrl}}/users/USER_ID_HERE/tokens/FUNCTION_ID_HERE/refill
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###############################################################################
+# WORKFLOW EXAMPLE:
+# 1. POST /auth/login -> get JWT token
+# 2. POST /functions -> create a function, get its ID
+# 3. POST /users/{userId}/tokens -> create token using functionId
+# 4. POST /users/{userId}/tokens/{functionId}/use -> use the token
+###############################################################################
+
+###############################################################################
+# STORAGE WORKSHOP - S3-compatible upload flow
+###############################################################################
+
+### Create presigned upload URL
+POST {{baseUrl}}/storage/presign-upload
+Content-Type: application/json
+
+{
+  "filename": "avatar.png",
+  "contentType": "image/png",
+  "size": 120000
+}
+
+### Save profile metadata after upload
+POST {{baseUrl}}/profiles
+Content-Type: application/json
+
+{
+  "nickname": "Mint",
+  "avatarKey": "profiles/2026-06-02/example.png"
+}
+
+### List profile cards
+GET {{baseUrl}}/profiles

@@ -10,6 +10,28 @@
 
 ---
 
+## ☁️ Storage Workshop
+
+Branch นี้เพิ่มช่วง workshop เรื่อง **S3-compatible Object Storage** สำหรับต่อยอดจาก frontend และ backend/database session
+
+- หน้า workshop: `http://localhost:3000/storage`
+- Backend API: `http://localhost:3001`
+- Swagger: `http://localhost:3001/api/docs`
+- MinIO Console: `http://localhost:9001`
+- คู่มือ: [`docs/storage-workshop/README.md`](docs/storage-workshop/README.md)
+- Prompt สำหรับ NotebookLM: [`docs/storage-workshop/notebooklm-prompts.md`](docs/storage-workshop/notebooklm-prompts.md)
+
+แนวคิดหลัก:
+
+```text
+Frontend เลือกไฟล์
+Backend ออก presigned URL
+Object Storage เก็บไฟล์จริง
+Database เก็บ object key เป็น metadata
+```
+
+---
+
 ## 📌 สารบัญ
 
 - [🚀 คุณสมบัติเด่น](#-คุณสมบัติเด่น)
