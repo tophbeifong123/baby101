@@ -45,6 +45,15 @@ docker compose up -d
 
 ### Checkpoint 2: Backend Presigned URL
 
+แนะนำให้ใช้ Postman collection ที่เตรียมไว้ เพราะ request ถูกเรียงตามลำดับ lab แล้ว:
+
+1. Import `docs/storage-workshop/postman/storage-workshop.postman_collection.json`
+2. Import `docs/storage-workshop/postman/storage-workshop.postman_environment.json`
+3. เลือก environment `Baby101 Storage Workshop Local`
+4. Run request `01 Create Presigned Upload URL`
+
+ถ้าต้องการยิงเองด้วย terminal ใช้คำสั่งนี้:
+
 ยิง request:
 
 ```bash
@@ -71,6 +80,15 @@ curl -X POST http://localhost:3001/storage/presign-upload \
 3. เลือกรูป
 4. กด Create Profile
 5. กลับไปดูใน MinIO Console แล้วเห็น object ใหม่
+
+ถ้าต้องการทดสอบ flow แบบ API ล้วนใน Postman ให้รันตามลำดับ:
+
+1. `01 Create Presigned Upload URL`
+2. `02 Upload File To MinIO With Presigned URL`
+3. `03 Save Profile Metadata`
+4. `04 List Profiles`
+
+request แรกจะเก็บ `avatarKey` และ `uploadUrl` ลง environment ให้อัตโนมัติ
 
 ## Branch Strategy
 
