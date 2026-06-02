@@ -1,0 +1,618 @@
+{
+  "info": {
+    "name": "Baby 101 Backend API",
+    "description": "Complete API collection for Baby 101 NestJS backend.\n\n## 🚀 Quick Start\n\n1. Import this collection in Postman (File → Import)\n2. Import `Baby-101-Local.postman_environment.json`\n3. Select environment \"Baby 101 Local\" (top-right)\n4. Start with **Auth → Register**\n5. Token จะถูกเก็บอัตโนมัติหลัง Login!\n\n## 📁 Folders\n\n- **Auth** — register, login (public)\n- **Users** — CRUD (protected)\n- **Functions** — CRUD (protected)\n- **Tokens** — quota management (protected)\n\n## 🔐 Auto-Auth\n\nCollection นี้ตั้ง Bearer Token ไว้แล้ว — token จะถูก auto-set หลัง login ไม่ต้องใส่เอง!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "baby101-backend-collection"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Log request for debugging",
+          "console.log(`→ ${pm.request.method} ${pm.request.url.toString()}`);"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Log response",
+          "console.log(`← ${pm.response.code} ${pm.response.status}`);"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔓 Auth",
+      "description": "Public endpoints — ไม่ต้องมี token",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@test.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "สมัคร user ใหม่ + รับ JWT token กลับมา"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  pm.collectionVariables.set('token', json.access_token);",
+                  "  if (json.user && json.user.id) {",
+                  "    pm.environment.set('userId', json.user.id);",
+                  "    console.log('✅ Token saved + userId:', json.user.id);",
+                  "  }",
+                  "  pm.test('Register success', () => pm.expect(json.access_token).to.exist);",
+                  "} else {",
+                  "  console.log('❌ Register failed:', pm.response.text());",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@test.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login + รับ JWT token (token จะถูกเก็บ auto)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  pm.collectionVariables.set('token', json.access_token);",
+                  "  if (json.user && json.user.id) {",
+                  "    pm.environment.set('userId', json.user.id);",
+                  "    console.log('✅ Login success + userId:', json.user.id);",
+                  "  }",
+                  "  pm.test('Login success', () => pm.expect(json.access_token).to.exist);",
+                  "} else {",
+                  "  console.log('❌ Login failed:', pm.response.text());",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login (wrong password)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@test.com\",\n  \"password\": \"wrongpassword\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "ทดสอบ login ผิด → ควรได้ 401"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Should return 401', () => pm.response.to.have.status(401));",
+                  "console.log('✅ Wrong password correctly returns 401');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "👤 Users",
+      "description": "CRUD Users — ต้องมี JWT token (collection จะใส่ให้อัตโนมัติ)",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "description": "ดู users ทั้งหมด"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const users = pm.response.json();",
+                  "  console.log(`✅ Found ${users.length} users`);",
+                  "  pm.test('Returns array', () => pm.expect(users).to.be.an('array'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "ดู user 1 คน (ใช้ userId จาก environment)"
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Smith\",\n  \"email\": \"jane@test.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "description": "สร้าง user ใหม่ (admin endpoint)"
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "แก้ไข user (partial update)"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            },
+            "description": "ลบ user (status 204)"
+          }
+        },
+        {
+          "name": "Get Users (no token) - 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "description": "ทดสอบเรียกโดยไม่มี token → ควรได้ 401"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Should return 401', () => pm.response.to.have.status(401));",
+                  "console.log('✅ No token correctly returns 401');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "⚡ Functions",
+      "description": "CRUD Functions — ต้องมี JWT token",
+      "item": [
+        {
+          "name": "Create Function",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"generate_image\",\n  \"description\": \"Generate AI images from text prompt\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions"]
+            },
+            "description": "สร้าง function ใหม่ (functionId จะถูกเก็บ auto)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const fn = pm.response.json();",
+                  "  pm.environment.set('functionId', fn.id);",
+                  "  console.log('✅ Function created + functionId:', fn.id);",
+                  "  pm.test('Function has id', () => pm.expect(fn.id).to.exist);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Function 2 (summarize_text)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"summarize_text\",\n  \"description\": \"Summarize long text into key points\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions"]
+            },
+            "description": "สร้าง function ที่ 2"
+          }
+        },
+        {
+          "name": "Get All Functions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions"]
+            },
+            "description": "ดู functions ทั้งหมด"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const fns = pm.response.json();",
+                  "  console.log(`✅ Found ${fns.length} functions`);",
+                  "  pm.test('Returns array', () => pm.expect(fns).to.be.an('array'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Function by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "ดู function 1 อัน"
+          }
+        },
+        {
+          "name": "Update Function",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Generate high-quality AI images from text prompt\",\n  \"isActive\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "แก้ไข function (ปิดใช้งาน)"
+          }
+        },
+        {
+          "name": "Delete Function",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/functions/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["functions", "{{functionId}}"]
+            },
+            "description": "ลบ function (status 204)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎟️ Tokens",
+      "description": "Token quota management — ต้องมี JWT token",
+      "item": [
+        {
+          "name": "Create Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"functionId\": \"{{functionId}}\",\n  \"maxLimit\": 100\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens"]
+            },
+            "description": "สร้าง token ให้ user (initial remaining = maxLimit)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const token = pm.response.json();",
+                  "  console.log(`✅ Token created: remaining=${token.remaining}/${token.maxLimit}`);",
+                  "  pm.test('Token has remaining', () => pm.expect(token.remaining).to.be.a('number'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Tokens for User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens"]
+            },
+            "description": "ดู tokens ทั้งหมดของ user (รวม function info)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const tokens = pm.response.json();",
+                  "  console.log(`✅ User has ${tokens.length} tokens`);",
+                  "  tokens.forEach(t => {",
+                  "    console.log(`   - ${t.function?.name || t.functionId}: ${t.remaining}/${t.maxLimit}`);",
+                  "  });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Token by Function",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}"]
+            },
+            "description": "ดู token 1 อัน"
+          }
+        },
+        {
+          "name": "Use Token (decrement)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}/use",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}", "use"]
+            },
+            "description": "ใช้ token (remaining ลด 1)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const token = pm.response.json();",
+                  "  console.log(`✅ Token used: remaining=${token.remaining}/${token.maxLimit}`);",
+                  "} else if (pm.response.code === 400) {",
+                  "  console.log('❌ No tokens remaining (400 BadRequest)');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Use Token (no remaining) - 400",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}/use",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}", "use"]
+            },
+            "description": "ทดสอบใช้ token ตอนหมด → ควรได้ 400"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 400) {",
+                  "  console.log('✅ Correctly returns 400 when no tokens remaining');",
+                  "  pm.test('Should return 400', () => pm.response.to.have.status(400));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refill Token (manual)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/tokens/{{functionId}}/refill",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "tokens", "{{functionId}}", "refill"]
+            },
+            "description": "Refill token แบบ manual (remaining = maxLimit)"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const token = pm.response.json();",
+                  "  console.log(`✅ Token refilled: remaining=${token.remaining}/${token.maxLimit}`);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
