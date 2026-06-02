@@ -7,15 +7,16 @@
   },
   "item": [
     {
-      "name": "00 Health Check",
+      "name": "00 Backend Ready Check",
       "event": [
         {
           "listen": "test",
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test('Backend should respond', function () {",
+              "pm.test('Backend and database should respond', function () {",
               "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.json()).to.be.an('array');",
               "});"
             ]
           }
@@ -25,12 +26,15 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{backendBaseUrl}}",
+          "raw": "{{backendBaseUrl}}/profiles",
           "host": [
             "{{backendBaseUrl}}"
+          ],
+          "path": [
+            "profiles"
           ]
         },
-        "description": "ใช้เช็กว่า NestJS backend เปิดอยู่แล้วหรือยัง"
+        "description": "ใช้เช็กว่า NestJS backend และ PostgreSQL เปิดอยู่แล้วหรือยัง ถ้าได้ array แปลว่าพร้อมเริ่ม lab"
       },
       "response": []
     },
